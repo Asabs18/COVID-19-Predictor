@@ -235,7 +235,7 @@ print(mse_final)
 - Create Minimal Possible working CNN with Tensor Flow and get accuracy
 - Upgrade Model parameters and layers to be optomized for COVID-19 spread prediction 
 - Save model and allow to optomize itself each time its trained
-- Output prediction to Predict.JSON file and store in Website Database each time a new prediction is made 
+- Output prediction to Predict.JSON file and store in Website Database each time a new prediction is made
 ### Website Display:
 #### Who:
 - TBD and TBD
