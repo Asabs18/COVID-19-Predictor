@@ -11,11 +11,7 @@
 ### Overview:
 - Using Scrapy
 - Create a Spider to crawl through and scrape one or more websites to gather the following info:
-1. Total Covid cases in Putnam County
-2. Total Vacinations in Putnam County
-3. 7-Day cases in Putnam County(Last Seven days from the date scraped)
-4. 7-Day Vacinations in Putnam County(Last Seven days from the date scraped)
-5. Population size of Putnam County
+1. Total cases each day
 - Store this infromation in a file named Data.JSON using pythons JSON read and write functions
 6. NEED TO FIND A WAY TO ORGANIZE DATA BEFORE STORING I.E PANDAS OR NUMPY
 ### Scraper Targets:
@@ -48,7 +44,7 @@ class QuotesSpider(scrapy.Spider):
         self.log(f'Saved file {filename}')
 ```
 
-## Convolutional Neural Network:
+## LSTM RNN Neural Network:
 ### Overview:
 - Using Tensor Flow in Python
 - Take data in Data.JSON returned from Scraper.py
@@ -57,6 +53,7 @@ class QuotesSpider(scrapy.Spider):
 - Optomize the Model based on the accuracy 
 - Run a prediction on all of the Data
 - Return Preditcion and accuracy into Predict.JSON file
+- Use LSTM for model
 ### References:
 1. [Tensor Flow CNN Docs](https://www.tensorflow.org/tutorials/images/cnn)
 2. [Tensor Flow Docs](https://www.tensorflow.org/api_docs)
@@ -232,7 +229,7 @@ print(mse_final)
 #### Who:
 - Aidan and Rowen 
 #### Plan:
-- Create Minimal Possible working CNN with Tensor Flow and get accuracy
+- Create Minimal Possible working RNN(LSTM) with Tensor Flow and get accuracy
 - Upgrade Model parameters and layers to be optomized for COVID-19 spread prediction 
 - Save model and allow to optomize itself each time its trained
 - Output prediction to Predict.JSON file and store in Website Database each time a new prediction is made
