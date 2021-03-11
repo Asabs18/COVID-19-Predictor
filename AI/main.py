@@ -1,13 +1,12 @@
-import os, datetime, math, csv
-# import IPython
-# import IPython.display
+import math, os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-#import seaborn as sns
 import tensorflow as tf
-from sklearn.preprocessing import MinMaxScaler, StandardScaler
+from tensorflow import keras
+from sklearn.preprocessing import StandardScaler, QuantileTransformer
 from keras.models import Sequential
 from keras.layers import Dense, LSTM
 
@@ -40,7 +39,7 @@ dataset = data.values
 training_data_len = math.ceil(len(dataset) * .8)
 
 #scale the data (CHANGE FROM A MINMAXSCALER TO A SCALER WITH NO CAP FOR BETTER RESULTS)
-scaler = StandardScaler() #feature_range=(0,1)
+scaler = QuantileTransformer(output_distribution='uniform')
 scaled_data = scaler.fit_transform(dataset)
 
 #Create the Training Dataset
@@ -59,37 +58,30 @@ x_train, y_train = np.array(x_train), np.array(y_train)
 #Reshape the Data
 x_train = np.reshape(x_train, (x_train.shape[0], timesteps, 1))
 
-print("our training dataset has the shape of {x_train.shape}")
-print("X Train:")
-print(x_train)
-print("Y Train:")
-print(x_train)
-#Build the LSTM
-model = Sequential()
-model.add(LSTM(50, return_sequences = True, input_shape=(x_train.shape[1], 1)))
-model.add(LSTM(50, return_sequences = False))
-model.add(Dense(25))
-model.add(Dense(1))
+#Build the LSTM (Loading in pretrained model)
+model = keras.models.load_model('models/PUTCASES/model')
 
-model.compile(optimizer="adamax", loss='mean_squared_error')
+#INSERT TRAIN CODE TO RETRAIN MODEL
 
-model.fit(x_train, y_train, batch_size=1, epochs=2)
-
+#Get the Test data
 test_data = scaled_data[training_data_len - 60: , :]
 x_test = []
 y_test = dataset[training_data_len: , :]
 for i in range(60, len(test_data)):
     x_test.append(test_data[i-60:i, 0])
 
+#format test data
 x_test = np.array(x_test)
-
 x_test = np.reshape(x_test, (x_test.shape[0], x_test.shape[1], 1))
 
+#make prediction
 predictions = model.predict(x_test)
 predictions = scaler.inverse_transform(predictions)
 
+#get the average error
 rmse = np.sqrt( np.mean( predictions - y_test )**2 )
 
+#Plot the results
 train = data[:training_data_len]
 valid = data[training_data_len:]
 valid['Predictions'] = predictions
@@ -102,8 +94,8 @@ plt.plot(train['Cases'])
 plt.plot(valid[['Cases', 'Predictions']])
 plt.legend(['Train', 'Val', 'Predictions'], loc='lower right')
 plt.show()
-
-
+#model.save('models/PUTCASES/model') IF RETRAINING, UNCOMMENT
+print(rmse)
 
 #class Adadelta: Optimizer that implements the Adadelta algorithm.
 #class Adagrad: Optimizer that implements the Adagrad algorithm.
@@ -111,10 +103,20 @@ plt.show()
 #class Adamax: Optimizer that implements the Adamax algorithm
 #class Ftrl: Optimizer that implements the FTRL algorithm.
 #class Nadam: Optimizer that implements the NAdam algorithm.
-#class Optimizer: Base class for Keras optimizers.
 #class RMSprop: Optimizer that implements the RMSprop algorithm.
 #class SGD: Gradient descent (with momentum) optimizer.
 #https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Adamax
 #This ^^^ website has info on all of the listed optimizers
 #https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Adamax
-#^^^Adamax things^^^
+#^^^Adamax optimizer^^^
+
+#RETRAIN CODE:
+# model = Sequential()
+# model.add(LSTM(50, return_sequences = True, input_shape=(x_train.shape[1], 1)))
+# model.add(LSTM(50, return_sequences = False))
+# model.add(Dense(25))
+# model.add(Dense(1))
+# model.compile(optimizer="rmsprop", loss='mean_squared_error')
+
+#Train the Model
+#model.fit(x_train, y_train, batch_size=1, epochs=3)
