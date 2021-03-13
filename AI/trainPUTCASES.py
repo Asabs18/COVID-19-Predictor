@@ -66,10 +66,10 @@ model.add(LSTM(50, return_sequences = True, input_shape=(x_train.shape[1], 1)))
 model.add(LSTM(50, return_sequences = False))
 model.add(Dense(25))
 model.add(Dense(1))
-model.compile(optimizer="rmsprop", loss='mean_squared_error')
+model.compile(optimizer="adam", loss='mean_squared_error')
 
 #Train the Model
-model.fit(x_train, y_train, batch_size=1, epochs=3)
+model.fit(x_train, y_train, batch_size=2, epochs=3)
 
 #Get the Test data
 test_data = scaled_data[training_data_len - 60: , :]

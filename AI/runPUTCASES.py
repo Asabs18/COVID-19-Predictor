@@ -47,7 +47,7 @@ model = keras.models.load_model('models/PUTCASES/model')
 
 #Get the Test data
 finalPreds = []
-for i in range(60):
+for i in range(14):
     x_test = []
     x_test.append(scaled_data[-60:])
     #format test data
@@ -61,5 +61,16 @@ for i in range(60):
     predictions = scaler.inverse_transform(predictions)
     finalPreds.append(predictions)
 
-for i, val in enumerate(finalPreds):
-    print(f"Day {i+1}: {math.ceil(val[0])} Cases predicted")
+#Plot the results
+train = data[training_data_len - 60:training_data_len]
+valid = data[len(scaled_data) - len(finalPreds):]
+valid['Predictions'] = finalPreds
+plt.figure(figsize=(16,8))
+plt.title('COVID-19 Predicted Cases(Training)')
+plt.xticks(np.arange(0, 1000, 5))
+plt.xlabel('Date', fontsize=8)
+plt.ylabel('Number of Cases', fontsize=18)
+plt.plot(train['Cases'])
+plt.plot(valid['Predictions'])
+plt.legend(['Train', 'Val', 'Predictions'], loc='lower right')
+plt.show()
