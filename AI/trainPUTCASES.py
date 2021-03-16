@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 from tensorflow import keras
-from sklearn.preprocessing import StandardScaler, QuantileTransformer
+from sklearn.preprocessing import QuantileTransformer
 from keras.models import Sequential
 from keras.layers import Dense, LSTM
 
@@ -69,7 +69,7 @@ model.add(Dense(1))
 model.compile(optimizer="adam", loss='mean_squared_error')
 
 #Train the Model
-model.fit(x_train, y_train, batch_size=2, epochs=3)
+model.fit(x_train, y_train, batch_size=1, epochs=3)
 
 #Get the Test data
 test_data = scaled_data[training_data_len - 60: , :]
@@ -107,26 +107,34 @@ print(rmse)
 if input("Would you like to save this model and overwrite the previous model? (y/n)").lower() == 'y':
     model.save('models/PUTCASES/model')
 
-#class Adadelta: Optimizer that implements the Adadelta algorithm.
-#class Adagrad: Optimizer that implements the Adagrad algorithm.
-#class Adam: Optimizer that implements the Adam algorithm.
-#class Adamax: Optimizer that implements the Adamax algorithm
-#class Ftrl: Optimizer that implements the FTRL algorithm.
-#class Nadam: Optimizer that implements the NAdam algorithm.
-#class RMSprop: Optimizer that implements the RMSprop algorithm.
-#class SGD: Gradient descent (with momentum) optimizer.
-#https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Adamax
-#This ^^^ website has info on all of the listed optimizers
-#https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Adamax
-#^^^Adamax optimizer^^^
+#OPTIMIZERS
+    #class Adam: Optimizer that implements the Adam algorithm.
+    #class Nadam: Optimizer that implements the NAdam algorithm.
+    #https://www.tensorflow.org/api_docs/python/tf/keras/optimizers
+    #This ^^^ website has info on all of the listed optimizers
+    #https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Adamax
+    #^^^Adamax optimizer^^^
 
 #RETRAIN CODE:
-# model = Sequential()
-# model.add(LSTM(50, return_sequences = True, input_shape=(x_train.shape[1], 1)))
-# model.add(LSTM(50, return_sequences = False))
-# model.add(Dense(25))
-# model.add(Dense(1))
-# model.compile(optimizer="rmsprop", loss='mean_squared_error')
+    #model = Sequential()
+    #model.add(LSTM(50, return_sequences = True, input_shape=(x_train.shape[1], 1)))
+    #model.add(LSTM(50, return_sequences = False))
+    #model.add(Dense(25))
+    #model.add(Dense(1))    
+    #model.compile(optimizer="rmsprop", loss='mean_squared_error')
 
 #Train the Model
-#model.fit(x_train, y_train, batch_size=1, epochs=3)
+    #model.fit(x_train, y_train, batch_size=1, epochs=3)
+
+#MAYBE  OPTIMIZERS  :
+    #class Adamax: Optimizer that implements the Adamax algorith
+    #class RMSprop: Optimizer that implements the RMSprop algorithm.
+    #class SGD: Gradient descent (with momentum) optimizer.
+
+#SCALERS:
+    #QuantileTransformer(output_distribution='normal')
+
+#MAYBE SCALERS:
+    #MaxAbsScaler()
+    #RobustScaler(quantile_range=(25, 75))
+    #PowerTransformer(method='yeo-johnson')

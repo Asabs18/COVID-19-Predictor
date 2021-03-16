@@ -1,4 +1,4 @@
-import math, os, json
+import math, os, json, random
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -44,7 +44,7 @@ scaled_data = scaler.fit_transform(dataset)
 
 #Build the LSTM (Loading in pretrained model)
 model = keras.models.load_model('models/PUTCASES/model')
-
+ 
 #Get the Test data
 finalPreds = []
 for i in range(14):
@@ -56,7 +56,8 @@ for i in range(14):
 
     #make prediction
     predictions = model.predict(x_test)
-    scaled_data = np.append(scaled_data, predictions[0])
+    test = random.randint(0, 1)
+    scaled_data = np.append(scaled_data, predictions[0] + random.uniform(-0.35, 0.35))
     scaled_data = scaled_data.transpose()
     predictions = scaler.inverse_transform(predictions)
     finalPreds.append(predictions)
@@ -74,3 +75,9 @@ plt.plot(train['Cases'])
 plt.plot(valid['Predictions'])
 plt.legend(['Train', 'Val', 'Predictions'], loc='lower right')
 plt.show()
+
+f = open("putPrediction.txt", "a")
+f.truncate(0)
+for pred in finalPreds:
+    f.write(f"{str(math.ceil(pred[0][0]))}\n")
+f.close()
