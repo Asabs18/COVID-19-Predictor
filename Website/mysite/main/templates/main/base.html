@@ -1,9 +1,84 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-    <head>
-        <title>COVID-19 Prediction</title>
-    </head>
-    <body>
-        <p>Base Template</p>
-    </body>
+<head>
+    <style type="text/css">
+        .topnav {
+            background-color: rgba(51, 51, 51, 0.705);
+            overflow: hidden;
+        }
+        
+        /* Style the links inside the navigation bar */
+        .topnav a {
+            float: left;
+            text-align: center;
+            color: #96dfff;
+            padding: 20px 191px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+        
+        /* Change the color of links on hover */
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        
+        /* Add a color to the active/current link */
+        .topnav a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+
+        .main{
+            margin-left: 35%;
+            padding: 0px 10px;
+            overflow: hidden;
+        }
+
+        h1{
+            padding-top: 20px;
+            color: #96dfff;
+        }
+
+        /* attempt at bkg */
+        body{
+            overflow: hidden;
+            height: 1000px;
+            background-color: #4169e1; /* For browsers that do not support gradients */
+            background-image: linear-gradient(180deg, #002366, #5b7feb, #002366); /*#4169e1, #96dfff, #4169e1*/
+        }
+    </style>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+
+    <title>
+        {%block title%}COVID-19 Predictor{%endblock%}
+    </title>
+</head>
+
+<body>
+    <div class="topnav">
+        <a href="/">Home</a>
+        <a href="/COVID-19-Data">COVID-19 Data</a>
+        <a href="/COVID-19-Predictions">COVID-19 Predictions</a>
+        <a href="/About-Us">About Us</a>
+    </div>
+    <div id = "content", name="content", class="main">
+        <div class="row justify-content-center">
+            <div class="col-8">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
+</body>
 </html>
