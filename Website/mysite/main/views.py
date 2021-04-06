@@ -18,6 +18,18 @@ def home(response):
     return render(response, "main/home.html", {})
 
 def data(response):
+    latestPutData = data.objects.all().order_by('-id')[0]
+    if str(date.today()) != latestPutPred.end:
+        newPutPred = pred(name=f"Putnam County Data {str(date.today())}")
+        newPutPred.save()
+        file = open("../../dataScraper/output.csv", "r")
+        for x, line in enumerate(file):
+            for character in line:
+                if character != ",":
+                    case = case + character
+                else:
+                    day = datetime.date.today() - datetime.timedelta(days=x)
+                    newPutData.day_set.create(date=str(day), cases=int(case))
     return render(response, "main/data.html", {})
 
 def prediction(response):

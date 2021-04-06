@@ -10,6 +10,13 @@ class pred(models.Model):
     def __str__(self):
         return self.name
 
+class data(models.Model):
+    name = models.CharField(max_length=50)
+    end = models.CharField(max_length=10, default=str(date.today()))
+
+    def __str__(self):
+        return self.name
+
 class day(models.Model):
     pred = models.ForeignKey(pred, on_delete=models.CASCADE)
     date = models.CharField(max_length=10)
