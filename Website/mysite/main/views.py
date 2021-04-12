@@ -34,10 +34,14 @@ def population_chart(response):
     labels = []
     dataSet = []
 
-    queryset = data.objects.values("data__date")
-    for entry in queryset:
-        labels.append(entry['data__date'])
-        dataSet.append(entry['data__cases'])
+    queryset = day2.objects.all()
+    validDays = []
+    for x in queryset:
+        if str(x.data) == f"Putnam County Data {str(date.today())}":
+            validDays.append(x)
+    for day in validDays:
+        labels.append(day.date)
+        dataSet.append(day.cases)
     
     return JsonResponse(data={
         'labels': labels,
