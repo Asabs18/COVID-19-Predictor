@@ -24,3 +24,11 @@ class day(models.Model):
 
     def __str__(self):
         return self.date
+
+class day2(models.Model):
+    data = models.ForeignKey(data, on_delete=models.CASCADE)
+    date = models.CharField(max_length=10, default=str(date.today()))
+    cases = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.date

@@ -9,9 +9,7 @@
 <body>
 {% block map %}
 <div id = "frame">
-    <iframe name="frame"
-    src="https://www.google.com/maps/embed/v1/view?key=AIzaSyBeBB6TSTzCJFUjH_iViR_RehY1EPY7M1E&center=41.382107,-73.918938&zoom=12" 
-    width="100%" height="1000" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+    <iframe name="frame" id="map" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBeBB6TSTzCJFUjH_iViR_RehY1EPY7M1E&q=Putnam+County+NY&center=41.382107,-73.918938&zoom=11" width="100%" height="1000" frameborder="0" allowfullscreen="allowfullscreen"></iframe>"
 </div>
 {% load static %} 
 {% endblock %}
