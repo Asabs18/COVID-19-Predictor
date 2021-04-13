@@ -9,3 +9,23 @@ About Us
 <h1>About Us</h1>
 {% load static %} 
 {% endblock %}
+{% block map %}
+<h3 style="padding-left: 47%; color: black;">Overview</h3>
+<p style="padding-left: 25%; padding-right: 25%; padding-bottom: 5%; color: black;">
+    This site showcases a small and simple prediction algorithm used to try and predict future COVID-19 cases in our community. Who are we? We are a group of students
+    going to Haldane Highschool in Coldspring, NY. We created this project in our computer science class from around March - April of 2021. The intent of this project
+    was mainly educational so none of the graphs or predictions on this site should be taken as fact or reliable source. 
+</p>
+<h3 style="padding-left: 43%; color: black;">Whats Under the Hood?</h3>
+<p style="padding-left: 25%; padding-right: 25%; padding-bottom: 5%; color: black;">
+    This project collects data from https://www.cdc.gov/nchs/covid19/index.htm, parses that data and passes the relevant infromation through a Recurrent Neural Network,
+    More specifically a Long-Short-Term-Memory model to try and predict future COVID-19 cases in our county. That prediction along with the original data is then passed
+    to this website where it is displayed in a quick easy to understand format. This entire project automatically updates to show the most recent data whenever possible.
+</p>
+<h3 style="padding-left: 47%; color: black;">Contributors:</h3>
+<h5 style="padding-left: 47%; color: black;">Alex Danilov</h5>
+<h5 style="padding-left: 47%; color: black;">Aidan Sabatini</h5>
+<h5 style="padding-left: 47%; color: black;">Ben Mcewen</h5>
+<h5 style="padding-left: 47%; color: black;">Nino Perricone</h5>
+<h5 style="padding-left: 47%; color: black;">Rowen Kuzminski</h5>
+{% endblock %}

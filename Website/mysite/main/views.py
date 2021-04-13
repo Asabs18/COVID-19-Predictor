@@ -30,7 +30,7 @@ def Data(response):
                             case = ""
     return render(response, "main/data.html", {})
 
-def population_chart(response):
+def population_chartD(response):
     labels = []
     dataSet = []
 
@@ -42,6 +42,25 @@ def population_chart(response):
     for day in validDays:
         labels.append(day.date)
         dataSet.append(day.cases)
+    labels.reverse()
+    
+    return JsonResponse(data={
+        'labels': labels,
+        'data': dataSet,
+    })
+
+def population_chartP(response):
+    labels = []
+    dataSet = []
+
+    queryset = day.objects.all()
+    validDays = []
+    for x in queryset:
+        if str(x.pred) == f"Putnam County Pred {str(date.today())}":
+            validDays.append(x)
+    for validDay in validDays:
+        labels.append(validDay.date)
+        dataSet.append(validDay.cases)
     
     return JsonResponse(data={
         'labels': labels,
